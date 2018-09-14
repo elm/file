@@ -127,7 +127,7 @@ function _File_toString(blob)
 		   callback(__Scheduler_succeed(reader.result));
 		});
 		reader.readAsText(blob);
-	};
+	});
 }
 
 function _File_toBytes(blob)
@@ -139,7 +139,7 @@ function _File_toBytes(blob)
 		   callback(__Scheduler_succeed(new DataView(reader.result)));
 		});
 		reader.readAsArrayBuffer(blob);
-	};
+	});
 }
 
 function _File_toUrl(blob)
@@ -151,6 +151,6 @@ function _File_toUrl(blob)
 		   callback(__Scheduler_succeed(reader.result));
 		});
 		reader.readAsDataURL(blob);
-	};
+	});
 }
 
