@@ -36,6 +36,7 @@ before exposing a `Task` API for things.
 
 
 import Bytes exposing (Bytes)
+import Elm.Kernel.File
 import File exposing (File)
 import Json.Decode as Decode
 import Task exposing (Task)

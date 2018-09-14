@@ -25,6 +25,7 @@ module File exposing
 -}
 
 import Bytes exposing (Bytes)
+import Elm.Kernel.File
 import Json.Decode as Decode
 import Task exposing (Task)
 import Time
