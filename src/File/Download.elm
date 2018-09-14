@@ -1,5 +1,6 @@
 module File.Download exposing
   ( url
+  , urlAs
   , string
   , bytes
   )
