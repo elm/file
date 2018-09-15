@@ -41,7 +41,7 @@ function _File_getDownloadNode()
 	return _File_downloadNode || (_File_downloadNode = document.createElementNS('http://www.w3.org/1999/xhtml', 'a'));
 }
 
-var _File_download = F3(function(mime, name, content)
+var _File_download = F3(function(name, mime, content)
 {
 	return __Scheduler_binding(function(callback)
 	{
@@ -58,7 +58,7 @@ var _File_download = F3(function(mime, name, content)
 		var node = _File_getDownloadNode();
 		var objectUrl = URL.createObjectURL(blob);
 		node.setAttribute('href', objectUrl);
-		node.setAttribute('download', settings.__$name);
+		node.setAttribute('download', name);
 		node.dispatchEvent(new MouseEvent('click'));
 		URL.revokeObjectURL(objectUrl);
 	});
