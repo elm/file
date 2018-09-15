@@ -1,6 +1,5 @@
 module File.Download exposing
   ( url
-  , urlAs
   , string
   , bytes
   )
@@ -15,7 +14,7 @@ result, the following commands only work when they are triggered by some user
 event.
 
 # Download
-@docs url, urlAs, string, bytes
+@docs url, string, bytes
 
 -}
 
@@ -40,26 +39,18 @@ with the following code:
     saveMathGif =
       Download.url "https://example.com/math.gif"
 
-The downloaded file will use whatever name the server suggests. Use
-[`urlAs`](#urlAs) if you want to customize the file name.
+The downloaded file will use whatever name the server suggests.
+
+**Note:** There exists a way to _suggest_ an alternate name, but it seems to
+work only for same origin downloads. It should be more reliable to set the
+[`Content-Disposition`][cd] header on the server side. Adding a header like
+`Content-Disposition: attachment; filename="triangle.gif"` should do it.
+
+[cd]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
 -}
 url : String -> Cmd msg
 url href =
-  Task.perform never (Elm.Kernel.File.downloadUrlAs "" href)
-
-
-{-| Download a file from a URL, but say what you want the file to be named:
-
-    import File.Download as Download
-
-    saveTriangle : Cmd msg
-    saveTriangle =
-      Download.urlAs "triangle.gif" "https://example.com/math.gif"
-
--}
-urlAs : String -> String -> Cmd msg
-urlAs name href =
-  Task.perform never (Elm.Kernel.File.downloadUrlAs name href)
+  Task.perform never (Elm.Kernel.File.downloadUrl href)
 
 
 {-| Download a `String` as a file. Maybe you markdown editor in the browser,

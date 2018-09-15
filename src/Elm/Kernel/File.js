@@ -64,16 +64,16 @@ var _File_download = F3(function(mime, name, content)
 	});
 });
 
-var _File_downloadUrlAs = F2(function(name, href)
+function _File_downloadUrl(href)
 {
 	return __Scheduler_binding(function(callback)
 	{
 		var node = _File_getDownloadNode();
 		node.setAttribute('href', href);
-		node.setAttribute('download', name);
+		node.setAttribute('download', '');
 		node.dispatchEvent(new MouseEvent('click'));
 	});
-});
+}
 
 
 // UPLOAD
