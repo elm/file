@@ -1,7 +1,7 @@
 /*
 
 import Elm.Kernel.Json exposing (decodePrim, expecting)
-import Elm.Kernel.List exposing (Cons, Nil)
+import Elm.Kernel.List exposing (fromArray)
 import Elm.Kernel.Scheduler exposing (binding, succeed)
 import Elm.Kernel.Utils exposing (Tuple0, Tuple2)
 import Result exposing (Ok)
@@ -15,18 +15,18 @@ import Time exposing (millisToPosix)
 
 var _File_decoder = __Json_decodePrim(function(value) {
 	return (value instanceof File)
-		? __Result_Ok(_File_toFile(value))
+		? __Result_Ok(value)
 		: __Json_expecting('a FILE', value);
 });
 
 
 // METADATA
 
-function _File_getName(file) { return file.name; }
-function _File_getMime(file) { return file.type; }
-function _File_getSize(file) { return file.size; }
+function _File_name(file) { return file.name; }
+function _File_mime(file) { return file.type; }
+function _File_size(file) { return file.size; }
 
-function _File_getLastModified(file)
+function _File_lastModified(file)
 {
 	return __Time_millisToPosix(file.lastModified);
 }
@@ -103,12 +103,7 @@ function _File_uploadOneOrMore(mimes)
 		node.setAttribute('multiple', '');
 		node.addEventListener('change', function(event)
 		{
-			var elmFiles = __List_Nil;
-			var jsFiles = event.target.files;
-			for (var i = jsFiles.length; i--; )
-			{
-				elmFiles = __List_Cons(_File_toFile(jsFiles[i]), elmFiles);
-			}
+			var elmFiles = __List_fromArray(event.target.files);
 			callback(__Scheduler_succeed(__Utils_Tuple2(elmFiles.a, elmFiles.b)));
 		});
 		node.dispatchEvent(new MouseEvent('click'));
@@ -124,9 +119,10 @@ function _File_toString(blob)
 	{
 		var reader = new FileReader();
 		reader.addEventListener('loadend', function() {
-		   callback(__Scheduler_succeed(reader.result));
+			callback(__Scheduler_succeed(reader.result));
 		});
 		reader.readAsText(blob);
+		return function() { reader.abort(); };
 	});
 }
 
@@ -136,9 +132,10 @@ function _File_toBytes(blob)
 	{
 		var reader = new FileReader();
 		reader.addEventListener('loadend', function() {
-		   callback(__Scheduler_succeed(new DataView(reader.result)));
+			callback(__Scheduler_succeed(new DataView(reader.result)));
 		});
 		reader.readAsArrayBuffer(blob);
+		return function() { reader.abort(); };
 	});
 }
 
@@ -148,9 +145,10 @@ function _File_toUrl(blob)
 	{
 		var reader = new FileReader();
 		reader.addEventListener('loadend', function() {
-		   callback(__Scheduler_succeed(reader.result));
+			callback(__Scheduler_succeed(reader.result));
 		});
 		reader.readAsDataURL(blob);
+		return function() { reader.abort(); };
 	});
 }
 

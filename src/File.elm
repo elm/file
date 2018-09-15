@@ -4,10 +4,10 @@ module File exposing
   , toString
   , toBytes
   , toUrl
-  , getName
-  , getMime
-  , getSize
-  , getLastModified
+  , name
+  , mime
+  , size
+  , lastModified
   )
 
 
@@ -20,7 +20,7 @@ module File exposing
 @docs toString, toBytes, toUrl
 
 # Read Metadata
-@docs getName, getMime, getSize, getLastModified
+@docs name, mime, size, lastModified
 
 -}
 
@@ -133,47 +133,47 @@ toUrl =
 -- METADATA
 
 
-{-| get the name of a file.
+{-| Get the name of a file.
 
-    getName file1 == "README.md"
-    getName file2 == "math.gif"
-    getName file3 == "archive.zip"
+    name file1 == "README.md"
+    name file2 == "math.gif"
+    name file3 == "archive.zip"
 -}
-getName : File -> String
-getName =
-  Elm.Kernel.File.getName
+name : File -> String
+name =
+  Elm.Kernel.File.name
 
-{-| get the MIME type of a file.
+{-| Get the MIME type of a file.
 
-    getMime file1 == "text/markdown"
-    getMime file2 == "image/gif"
-    getMime file3 == "application/zip"
+    mime file1 == "text/markdown"
+    mime file2 == "image/gif"
+    mime file3 == "application/zip"
 -}
-getMime : File -> String
-getMime =
-  Elm.Kernel.File.getMime
+mime : File -> String
+mime =
+  Elm.Kernel.File.mime
 
 
 {-| Get the size of the file in bytes.
 
-    getSize file1 == 395
-    getSize file2 == 65813
-    getSize file3 == 81481
+    size file1 == 395
+    size file2 == 65813
+    size file3 == 81481
 -}
-getSize : File -> Int
-getSize =
-  Elm.Kernel.File.getSize
+size : File -> Int
+size =
+  Elm.Kernel.File.size
 
 
 {-| Get the time the file was last modified.
 
-    getLastModified file1 -- 1536872423
-    getLastModified file2 -- 860581394
-    getLastModified file3 -- 1340375405
+    lastModified file1 -- 1536872423
+    lastModified file2 -- 860581394
+    lastModified file3 -- 1340375405
 
 Learn more about how time is represented by reading through the
 [`elm/time`](/packages/elm/time/latest) package!
 -}
-getLastModified : File -> Time.Posix
-getLastModified =
-  Elm.Kernel.File.getLastModified
+lastModified : File -> Time.Posix
+lastModified =
+  Elm.Kernel.File.lastModified
