@@ -13,7 +13,7 @@ This package will work well for that sort of thing!
 
 This program lets you upload images. Once you upload an image, it will show some metadata and the image itself:
 
-```
+```elm
 import Browser
 import File exposing (File)
 import File.Upload as Upload
