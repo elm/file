@@ -1,6 +1,10 @@
 # Upload and Download Files
 
-Do you want people to upload photos of mountains and rivers? Do you have an online editor for text, images, SVG, PDF, or something? And do you want people to be able to download their files? This will work well for cases like this.
+Do you want people to upload photos of mountains and rivers?
+
+Do you want people to download PDFs of legal contracts or SVGs of floor plans?
+
+This package will work well for that sort of thing!
 
 **This package does not allow arbitrary access to the file system.** Browsers restrict access to the file system for the sake of security. Otherwise, any website on the internet could go try to read private keys out of `~/.ssh` or whatever else they want!
 
