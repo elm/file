@@ -1,22 +1,20 @@
-# Upload and Download Files
+# Files
 
-Do you want people to upload photos of mountains and rivers?
+Get files in and out of your browser.
 
-Do you want people to download PDFs of legal contracts or SVGs of floor plans?
+Maybe you generate an SVG floorplan or a PDF legal document? You can use `File.Download` to save those files to disk. Maybe you want people to upload a GIF cat picture or a JPG waterfall? You can use `File.Select` to get those files into the browser.
 
-This package will work well for that sort of thing!
-
-**This package does not allow arbitrary access to the file system.** Browsers restrict access to the file system for the sake of security. Otherwise, any website on the internet could go try to read private keys out of `~/.ssh` or whatever else they want!
+**This package does not allow _arbitrary_ access to the file system though.** Browsers restrict access to the file system for security. Otherwise, any website on the internet could go try to read private keys out of `~/.ssh` or whatever else they want!
 
 
-# Example
+## Example
 
-This program lets you upload images. Once you upload an image, it will show some metadata and the image itself:
+This program lets you load images into your application. Once you select an image, it will show the image and some metadata:
 
 ```elm
 import Browser
 import File exposing (File)
-import File.Upload as Upload
+import File.Select as Select
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -43,7 +41,7 @@ main =
 
 
 type alias Model =
-  { upload : Maybe File
+  { file : Maybe File
   , preview : Maybe String
   }
 
@@ -68,11 +66,11 @@ update msg model =
   case msg of
     ImageRequested ->
       ( model
-      , Upload.file ["image/*"] ImageLoaded
+      , Select.file ["image/*"] ImageLoaded
       )
 
     ImageLoaded file ->
-      ( { model | upload = Just file }
+      ( { model | file = Just file }
       , Task.perform GotPreview (File.toUrl file)
       )
 
@@ -98,8 +96,8 @@ subscriptions _ =
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick ImageRequested ] [ text "UPLOAD" ]
-    , viewMetadata model.upload
+    [ button [ onClick ImageRequested ] [ text "LOAD" ]
+    , viewMetadata model.file
     , viewPreview model.preview
     ]
 
@@ -131,4 +129,4 @@ viewPreview preview =
       img [ src url ] []
 ```
 
-If you want a drag-and-drop way to upload files, you can use `File.decoder` to handle drag events however makes sense for your particular scenario.
+If you want to drag-and-drop files into the browser, you can use `File.decoder` to handle drag events however makes sense for your particular scenario.
