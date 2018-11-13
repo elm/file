@@ -1,12 +1,12 @@
 {
     "type": "package",
     "name": "elm/file",
-    "summary": "Upload and download files (blobs)",
+    "summary": "Select files. Download files. Work with file content.",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
     "exposed-modules": [
         "File",
-        "File.Upload",
+        "File.Select",
         "File.Download"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",

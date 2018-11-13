@@ -1,6 +1,6 @@
 # Files
 
-Get files in and out of your browser.
+Select files. Download files. Work with file content.
 
 Maybe you generate an SVG floorplan or a PDF legal document? You can use `File.Download` to save those files to disk. Maybe you want people to upload a GIF cat picture or a JPG waterfall? You can use `File.Select` to get those files into the browser.
 
