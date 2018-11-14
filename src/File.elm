@@ -44,12 +44,12 @@ type File = File
 {-| Decode `File` values. For example, if you want to create a drag-and-drop
 file uploader, you can listen for `drop` events with a decoder like this:
 
-  import File
-  import Json.Decode exposing (Decoder, field, list)
+    import File
+    import Json.Decode exposing (Decoder, field, list)
 
-  files : Decode.Decoder (List File)
-  files =
-    field "dataTransfer" (field "files" (list File.decoder))
+    files : Decode.Decoder (List File)
+    files =
+      field "dataTransfer" (field "files" (list File.decoder))
 
 Once you have the files, you can use functions like [`File.toString`](#toString)
 to process the content. Or you can send the file along to someone else with the
