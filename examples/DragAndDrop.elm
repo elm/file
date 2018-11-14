@@ -116,12 +116,9 @@ dropDecoder =
 
 hijackOn : String -> D.Decoder msg -> Attribute msg
 hijackOn event decoder =
-  custom event (D.map hijack decoder)
+  preventDefaultOn event (D.map hijack decoder)
 
 
-hijack : msg -> { message : msg, stopPropagation : Bool, preventDefault : Bool }
+hijack : msg -> (msg, Bool)
 hijack msg =
-  { message = msg
-  , stopPropagation = True
-  , preventDefault = True
-  }
+  (msg, True)
