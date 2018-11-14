@@ -1,4 +1,4 @@
-To play with these examples locally, run the following commands:
+To play with these examples locally, you need to (1) make sure Elm is [installed](https://guide.elm-lang.org/install.html) and then (2) run the following commands:
 
 ```bash
 git clone https://github.com/elm/file.git
