@@ -73,7 +73,7 @@ file you could read the content like this:
     type Msg
       = MarkdownLoaded String
 
-    read : File -> Cmd String
+    read : File -> Cmd Msg
     read file =
       Task.perform MarkdownLoaded (File.toString file)
 
@@ -97,7 +97,7 @@ file you could read the content like this:
     type Msg
       = ZipLoaded Bytes
 
-    read : File -> Cmd Bytes
+    read : File -> Cmd Msg
     read file =
       Task.perform ZipLoaded (File.toBytes file)
 
