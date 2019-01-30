@@ -79,35 +79,47 @@ function _File_downloadUrl(href)
 
 // UPLOAD
 
+var _File_node1;
+var _File_callback1;
+
 function _File_uploadOne(mimes)
 {
 	return __Scheduler_binding(function(callback)
 	{
-		var node = document.createElement('input');
-		node.setAttribute('type', 'file');
-		node.setAttribute('accept', A2(__String_join, ',', mimes));
-		node.addEventListener('change', function(event)
+		_File_node1 || (
+			_File_node1 = document.createElement('input'),
+			_File_node1.setAttribute('type', 'file')
+		);
+		_File_node1.setAttribute('accept', A2(__String_join, ',', mimes));
+		_File_node1.removeEventListener('change', _File_callback1);
+		_File_node1.addEventListener('change', _File_callback1 = function(event)
 		{
 			callback(__Scheduler_succeed(event.target.files[0]));
 		});
-		node.dispatchEvent(new MouseEvent('click'));
+		_File_node1.dispatchEvent(new MouseEvent('click'));
 	});
 }
+
+var _File_nodeN;
+var _File_callbackN;
 
 function _File_uploadOneOrMore(mimes)
 {
 	return __Scheduler_binding(function(callback)
 	{
-		var node = document.createElement('input');
-		node.setAttribute('type', 'file');
-		node.setAttribute('accept', A2(__String_join, ',', mimes));
-		node.setAttribute('multiple', '');
-		node.addEventListener('change', function(event)
+		_File_nodeN || (
+			_File_nodeN = document.createElement('input'),
+			_File_nodeN.setAttribute('type', 'file'),
+			_File_nodeN.setAttribute('multiple', '')
+		);
+		_File_nodeN.setAttribute('accept', A2(__String_join, ',', mimes));
+		_File_nodeN.removeEventListener('change', _File_callbackN);
+		_File_nodeN.addEventListener('change', _File_callbackN = function(event)
 		{
 			var elmFiles = __List_fromArray(event.target.files);
 			callback(__Scheduler_succeed(__Utils_Tuple2(elmFiles.a, elmFiles.b)));
 		});
-		node.dispatchEvent(new MouseEvent('click'));
+		_File_nodeN.dispatchEvent(new MouseEvent('click'));
 	});
 }
 
