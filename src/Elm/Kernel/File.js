@@ -39,7 +39,7 @@ var _File_downloadNode;
 
 function _File_getDownloadNode()
 {
-	return _File_downloadNode || (_File_downloadNode = document.createElementNS('http://www.w3.org/1999/xhtml', 'a'));
+	return _File_downloadNode || (_File_downloadNode = document.createElement('a'));
 }
 
 var _File_download = F3(function(name, mime, content)
@@ -83,7 +83,7 @@ function _File_uploadOne(mimes)
 {
 	return __Scheduler_binding(function(callback)
 	{
-		var node = document.createElementNS('http://www.w3.org/1999/xhtml', 'input');
+		var node = document.createElement('input');
 		node.setAttribute('type', 'file');
 		node.setAttribute('accept', A2(__String_join, ',', mimes));
 		node.addEventListener('change', function(event)
@@ -98,7 +98,7 @@ function _File_uploadOneOrMore(mimes)
 {
 	return __Scheduler_binding(function(callback)
 	{
-		var node = document.createElementNS('http://www.w3.org/1999/xhtml', 'input');
+		var node = document.createElement('input');
 		node.setAttribute('type', 'file');
 		node.setAttribute('accept', A2(__String_join, ',', mimes));
 		node.setAttribute('multiple', '');
