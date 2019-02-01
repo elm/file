@@ -7,9 +7,9 @@ Maybe you generate an SVG floorplan or a PDF legal document? You can use `File.D
 **This package does not allow _arbitrary_ access to the file system though.** Browsers restrict access to the file system for security. Otherwise, any website on the internet could go try to read private keys out of `~/.ssh` or whatever else they want!
 
 
-## Examples
+## Download Example
 
-Maybe you want people to download the floorplan they just designed as an SVG file:
+Maybe you want people to download the floorplan they just designed as an SVG file? You could create a `download` command like this:
 
 ```elm
 import File.Download as Download
@@ -19,7 +19,10 @@ download svgContent =
   Download.string "floorplan.svg" "image/svg+xml" svgContent
 ```
 
-Or maybe you want to help scientists explore and visualize data, and they need to upload [CSV files](https://en.wikipedia.org/wiki/Comma-separated_values) like this:
+
+## Upload Example
+
+Maybe you want to help scientists explore and visualize data? Maybe they need to upload [CSV files](https://en.wikipedia.org/wiki/Comma-separated_values) like this:
 
 ```
 Name,Age,Weight,Height
