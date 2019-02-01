@@ -2,14 +2,14 @@
 
 Select files. Download files. Work with file content.
 
-Maybe you generate an SVG floorplan or a PDF legal document? You can use `File.Download` to save those files to disk. Maybe you want people to upload a CSV of microbe data or a JPG of their face? You can use `File.Select` to get those files into the browser.
+Maybe you generate an SVG floorplan or a PDF legal document? You can use [`File.Download`](https://package.elm-lang.org/packages/elm/file/latest/File-Download) to save those files to disk. Maybe you want people to upload a CSV of microbe data or a JPG of their face? You can use [`File.Select`](https://package.elm-lang.org/packages/elm/file/latest/File-Select) to get those files into the browser.
 
 **This package does not allow _arbitrary_ access to the file system though.** Browsers restrict access to the file system for security. Otherwise, any website on the internet could go try to read private keys out of `~/.ssh` or whatever else they want!
 
 
 ## Download Example
 
-Maybe you want people to download the floorplan they just designed as an SVG file? You could create a `download` command like this:
+Maybe you want people to download the floorplan they just designed as an SVG file? You could use [`File.Download.string`](https://package.elm-lang.org/packages/elm/file/latest/File-Download#string) like this:
 
 ```elm
 import File.Download as Download
@@ -31,7 +31,7 @@ Sue,55,50,1.6
 Bob,35,75,1.85
 ```
 
-You could start with a program like this:
+You could use [`File.Select.file`](https://package.elm-lang.org/packages/elm/file/latest/File-Select#file) and [`File.toString`](https://package.elm-lang.org/packages/elm/file/latest/File#toString) to create a program like this:
 
 ```elm
 import Browser
