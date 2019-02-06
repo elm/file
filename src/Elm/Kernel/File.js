@@ -50,17 +50,15 @@ var _File_download = F3(function(name, mime, content)
 
 		try
 		{
-		  blob = new Blob([content], {type: mime});	
+		  blob = new Blob([content], {type: mime});
 		}
 		catch(e)
 		{
 		  // Old browser, need to use blob builder
-      window.BlobBuilder = window.BlobBuilder ||
-                           window.WebKitBlobBuilder ||
-                           window.MozBlobBuilder ||
-                           window.MSBlobBuilder;
+      window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
 
-      if (window.BlobBuilder) {
+      if (window.BlobBuilder)
+      {
         var bb = new BlobBuilder();
         bb.append(content);
         blob = bb.getBlob(mime);
