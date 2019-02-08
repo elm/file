@@ -15,7 +15,7 @@ import Time exposing (millisToPosix)
 
 var _File_decoder = __Json_decodePrim(function(value) {
 	// NOTE: checks if `File` exists in case this is run on node
-	return (typeof File === 'function' && value instanceof File)
+	return (typeof File !== 'undefined' && value instanceof File)
 		? __Result_Ok(value)
 		: __Json_expecting('a FILE', value);
 });
