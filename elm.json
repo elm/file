@@ -3,7 +3,7 @@
     "name": "elm/file",
     "summary": "Select files. Download files. Work with file content.",
     "license": "BSD-3-Clause",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "exposed-modules": [
         "File",
         "File.Select",
