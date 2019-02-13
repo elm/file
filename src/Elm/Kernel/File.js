@@ -39,11 +39,32 @@ var _File_downloadNode;
 
 function _File_getDownloadNode()
 {
-	return _File_downloadNode || (_File_downloadNode = document.createElement('a'));
+  if (!_File_downloadNode) 
+  {
+    _File_downloadNode = document.createElement('a');
+
+    // for events to work in IE, the trigger element must be attached to the visible DOM
+    document.body.appendChild(_File_downloadNode)
+  }
+  
+  return _File_downloadNode;
 }
 
-var _File_download = F3(function(name, mime, content)
+function _File_createMouseEvent() 
 {
+  if (typeof MouseEvent === 'function') 
+  {
+    return new MouseEvent('click')
+  } 
+  
+  var ev = document.createEvent("MouseEvent");
+  ev.initMouseEvent("click",true,true,window,0,0,0,0,0,false,false,false,false,0,null);
+  return ev;
+  
+}
+
+var _File_download = F3(function(name, mime, content){
+
 	return __Scheduler_binding(function(callback)
 	{
 		var blob = new Blob([content], {type: mime});
@@ -60,7 +81,7 @@ var _File_download = F3(function(name, mime, content)
 		var objectUrl = URL.createObjectURL(blob);
 		node.setAttribute('href', objectUrl);
 		node.setAttribute('download', name);
-		node.dispatchEvent(new MouseEvent('click'));
+		node.dispatchEvent(_File_createMouseEvent());
 		URL.revokeObjectURL(objectUrl);
 	});
 });
@@ -72,7 +93,7 @@ function _File_downloadUrl(href)
 		var node = _File_getDownloadNode();
 		node.setAttribute('href', href);
 		node.setAttribute('download', '');
-		node.dispatchEvent(new MouseEvent('click'));
+		node.dispatchEvent(_File_createMouseEvent());
 	});
 }
 
