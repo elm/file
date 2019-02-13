@@ -90,4 +90,5 @@ create `.zip` files, `.jpg` files, or whatever else you might need!
 -}
 bytes : String -> String -> Bytes -> Cmd msg
 bytes name mime content =
-  Task.perform never (Elm.Kernel.File.download name mime content)
+  Task.perform never <| Elm.Kernel.File.download name mime <|
+    Elm.Kernel.File.makeBytesSafeForInternetExplorer content

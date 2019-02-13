@@ -76,6 +76,11 @@ function _File_downloadUrl(href)
 	});
 }
 
+function _File_makeBytesSafeForInternetExplorer(bytes)
+{
+	return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+}
+
 
 // UPLOAD
 
