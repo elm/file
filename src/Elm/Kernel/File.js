@@ -60,7 +60,7 @@ var _File_download = F3(function(name, mime, content)
 		var objectUrl = URL.createObjectURL(blob);
 		node.setAttribute('href', objectUrl);
 		node.setAttribute('download', name);
-		node.dispatchEvent(new MouseEvent('click'));
+		_File_click(node);
 		URL.revokeObjectURL(objectUrl);
 	});
 });
@@ -72,13 +72,38 @@ function _File_downloadUrl(href)
 		var node = _File_getDownloadNode();
 		node.setAttribute('href', href);
 		node.setAttribute('download', '');
-		node.dispatchEvent(new MouseEvent('click'));
+		_File_click(node);
 	});
 }
 
+
+// IE COMPATIBILITY
+
 function _File_makeBytesSafeForInternetExplorer(bytes)
 {
+	// only needed by IE10 and IE11 to fix https://github.com/elm/file/issues/10
+	// all other browsers can just run `new Blob([bytes])` directly with no problem
+	//
 	return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+}
+
+function _File_click(node)
+{
+	// only needed by IE10 and IE11 to fix https://github.com/elm/file/issues/11
+	// all other browsers have MouseEvent and do not need this conditional stuff
+	//
+	if (typeof MouseEvent === 'function')
+	{
+		node.dispatchEvent(new MouseEvent('click'));
+	}
+	else
+	{
+		var event = document.createEvent('MouseEvents');
+		event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+		document.body.appendChild(node);
+		node.dispatchEvent(event);
+		document.body.removeChild(node);
+	}
 }
 
 
@@ -97,7 +122,7 @@ function _File_uploadOne(mimes)
 		{
 			callback(__Scheduler_succeed(event.target.files[0]));
 		});
-		_File_node.dispatchEvent(new MouseEvent('click'));
+		_File_click(_File_node);
 	});
 }
 
@@ -114,7 +139,7 @@ function _File_uploadOneOrMore(mimes)
 			var elmFiles = __List_fromArray(event.target.files);
 			callback(__Scheduler_succeed(__Utils_Tuple2(elmFiles.a, elmFiles.b)));
 		});
-		_File_node.dispatchEvent(new MouseEvent('click'));
+		_File_click(_File_node);
 	});
 }
 
