@@ -45,10 +45,7 @@ file.
 **Warning:** The implementation uses `<a href="..." download></a>` which has
 two important consequences:
 
-1. **This does not work on IE10 and IE11.** If you need to support these
-browsers, fetch the file with `elm/http` and then use `File.Download.bytes` to
-do the final step.
-2. **Cross-origin downloads are weird.** If you want a file from a different
+1. **Cross-origin downloads are weird.** If you want a file from a different
 domain (like `https://files.example.com` or `https://www.wikipedia.org`) this
 function adds a `target="_blank"`, opening the file in a new tab. Otherwise
 the link would just take over the current page, replacing your website with a
@@ -56,10 +53,14 @@ GIF or whatever. To make cross-origin downloads work differently, you can (1)
 make the request same-origin by sending it to your server and then having your
 server fetch the file or (2) fetch the file with `elm/http` and then go through
 `File.Download.bytes`.
+2. **Same-origin downloads are weird in IE10 and IE11.** These browsers do not
+support the `download` attribute, so you should always get the `target="_blank"`
+behavior where the URL opens in a new tab. Again, you can fetch the file with
+`elm/http` and then use `File.Download.bytes` to get around this.
 
 Things are quite tricky here between the intentional security constraints and
 particularities of browser implementations, so remember that you can always
-send the URL out a `port` and do something even more custom in JavaScript.
+send the URL out a `port` and do something even more custom in JavaScript!
 
 [cd]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
 -}
