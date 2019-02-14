@@ -1,7 +1,7 @@
 module File.Download exposing
-  ( url
-  , string
+  ( string
   , bytes
+  , url
   )
 
 
@@ -14,7 +14,7 @@ result, the following commands only work when they are triggered by some user
 event.
 
 # Download
-@docs url, string, bytes
+@docs string, bytes, url
 
 -}
 
@@ -28,23 +28,38 @@ import Task
 -- DOWNLOAD
 
 
-{-| Download a file from a URL. So you could download a GIF about math like
-[this](https://en.wikipedia.org/wiki/Pythagorean_theorem#/media/File:Pythag_anim.gif)
-or [this](https://en.m.wikipedia.org/wiki/Portal:Mathematics/Featured_picture/2009_08#/media/File%3AVillarceau_circles.gif)
-with the following code:
+{-| Download a file from a URL on the same origin. So if you have a website
+at `https://example.com`, you could download a math GIF like this:
 
     import File.Download as Download
 
-    saveMathGif : Cmd msg
-    saveMathGif =
+    downloadMathGif : Cmd msg
+    downloadMathGif =
       Download.url "https://example.com/math.gif"
 
-The downloaded file will use whatever name the server suggests.
+The downloaded file will use whatever name the server suggests. So if you want
+a different name, have your server add a [`Content-Disposition`][cd] header like
+`Content-Disposition: attachment; filename="triangle.gif"` when it serves the
+file.
 
-**Note:** There exists a way to _suggest_ an alternate name, but it seems to
-work only for same origin downloads. It should be more reliable to set the
-[`Content-Disposition`][cd] header on the server side. Adding a header like
-`Content-Disposition: attachment; filename="triangle.gif"` should do it.
+**Warning:** The implementation uses `<a href="..." download></a>` which has
+two important consequences:
+
+1. **This does not work on IE10 and IE11.** If you need to support these
+browsers, fetch the file with `elm/http` and then use `File.Download.bytes` to
+do the final step.
+2. **Cross-origin downloads are weird.** If you want a file from a different
+domain (like `https://files.example.com` or `https://www.wikipedia.org`) this
+function adds a `target="_blank"`, opening the file in a new tab. Otherwise
+the link would just take over the current page, replacing your website with a
+GIF or whatever. To make cross-origin downloads work differently, you can (1)
+make the request same-origin by sending it to your server and then having your
+server fetch the file or (2) fetch the file with `elm/http` and then go through
+`File.Download.bytes`.
+
+Things are quite tricky here between the intentional security constraints and
+particularities of browser implementations, so remember that you can always
+send the URL out a `port` and do something even more custom in JavaScript.
 
 [cd]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
 -}
