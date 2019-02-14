@@ -72,6 +72,7 @@ function _File_downloadUrl(href)
 		var node = _File_getDownloadNode();
 		node.setAttribute('href', href);
 		node.setAttribute('download', '');
+		node.origin === location.origin || (node.target = '_blank');
 		_File_click(node);
 	});
 }
