@@ -58,8 +58,8 @@ var _File_download = F3(function(name, mime, content)
 		// for HTML5
 		var node = _File_getDownloadNode();
 		var objectUrl = URL.createObjectURL(blob);
-		node.setAttribute('href', objectUrl);
-		node.setAttribute('download', name);
+		node.href = objectUrl;
+		node.download = name;
 		_File_click(node);
 		URL.revokeObjectURL(objectUrl);
 	});
@@ -70,8 +70,8 @@ function _File_downloadUrl(href)
 	return __Scheduler_binding(function(callback)
 	{
 		var node = _File_getDownloadNode();
-		node.setAttribute('href', href);
-		node.setAttribute('download', '');
+		node.href = href;
+		node.download = '';
 		node.origin === location.origin || (node.target = '_blank');
 		_File_click(node);
 	});
@@ -117,8 +117,8 @@ function _File_uploadOne(mimes)
 	return __Scheduler_binding(function(callback)
 	{
 		_File_node = document.createElement('input');
-		_File_node.setAttribute('type', 'file');
-		_File_node.setAttribute('accept', A2(__String_join, ',', mimes));
+		_File_node.type = 'file';
+		_File_node.accept = A2(__String_join, ',', mimes);
 		_File_node.addEventListener('change', function(event)
 		{
 			callback(__Scheduler_succeed(event.target.files[0]));
@@ -132,9 +132,9 @@ function _File_uploadOneOrMore(mimes)
 	return __Scheduler_binding(function(callback)
 	{
 		_File_node = document.createElement('input');
-		_File_node.setAttribute('type', 'file');
-		_File_node.setAttribute('multiple', '');
-		_File_node.setAttribute('accept', A2(__String_join, ',', mimes));
+		_File_node.type = 'file';
+		_File_node.multiple = '';
+		_File_node.accept = A2(__String_join, ',', mimes);
 		_File_node.addEventListener('change', function(event)
 		{
 			var elmFiles = __List_fromArray(event.target.files);
