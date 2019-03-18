@@ -133,7 +133,7 @@ function _File_uploadOneOrMore(mimes)
 	{
 		_File_node = document.createElement('input');
 		_File_node.type = 'file';
-		_File_node.multiple = '';
+		_File_node.multiple = true;
 		_File_node.accept = A2(__String_join, ',', mimes);
 		_File_node.addEventListener('change', function(event)
 		{
