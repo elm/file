@@ -29,7 +29,8 @@ function _File_size(file) { return file.size; }
 
 function _File_lastModified(file)
 {
-	return __Time_millisToPosix(file.lastModified);
+	// IE10 and IE11 don't support lastModified, but have lastModifiedDate
+	return __Time_millisToPosix(file.lastModified || file.lastModifiedDate);
 }
 
 
