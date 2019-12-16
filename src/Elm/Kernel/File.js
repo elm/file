@@ -61,7 +61,9 @@ var _File_download = F3(function(name, mime, content)
 		node.href = objectUrl;
 		node.download = name;
 		_File_click(node);
-		URL.revokeObjectURL(objectUrl);
+		setTimeout(function(){
+			URL.revokeObjectURL(objectUrl);
+		});
 	});
 });
 
