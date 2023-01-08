@@ -1,3 +1,5 @@
+module  DragAndDropWithImagePreview exposing (..)
+
 import Browser
 import File exposing (File)
 import File.Select as Select

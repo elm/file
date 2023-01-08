@@ -1,3 +1,5 @@
+module SelectFiles exposing (..)
+
 import Browser
 import File exposing (File)
 import Html exposing (..)
